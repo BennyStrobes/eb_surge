@@ -39,6 +39,12 @@ eb_hvg_file="/scratch16/abattle4/bstrober/eb_surge/input_data/eb_hvgs.txt"
 # Output root
 output_root="/scratch16/abattle4/bstrober/eb_surge/"
 
+# Directory containing input data for standard eqtl calling
+standard_eqtl_input_data_dir=${output_root}"standard_eqtl_input/"
+
+# Directory containing standard eqtl calling results
+standard_eqtl_results_dir=${output_root}"standard_eqtl_results/"
+
 # Directory containing Processed input data for surge
 surge_input_data_dir=${output_root}"surge_input/"
 
@@ -48,6 +54,31 @@ surge_results_dir=${output_root}"surge_results/"
 # Directory containing visualizations of Surge results
 visualization_dir=${output_root}"visualization/"
 
+
+
+######################################
+# Analysis parameters
+######################################
+n_pcs="20"
+
+
+############################
+# Preprocess data for standard eQTL calling
+sh preprocess_data_for_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $pseudocell_pseudobulk_adata_file $plink_eb_genotype_file_stem $pseudocell_expression_pc_file $pseudocell_technical_cov_file $pseudocell_to_donor_id_mapping_file $n_pcs
+
+
+
+
+
+
+
+
+
+############################
+# Preprocess data for SURGE
+if false; then
+sh preprocess_data_for_surge.sh $surge_input_data_dir $pseudocell_technical_cov_file $pseudocell_expression_pc_file $pseudocell_pseudobulk_adata_file $pseudocell_to_donor_id_mapping_file $standard_eqtl_results_file $plink_eb_genotype_file_stem $eb_hvg_file
+fi
 
 
 
