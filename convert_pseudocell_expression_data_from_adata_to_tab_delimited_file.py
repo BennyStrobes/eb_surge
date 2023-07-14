@@ -17,12 +17,25 @@ def standardize_gene_expression_and_cap_outliers(un_normalized_expression, cappe
 	temp_expr = temp_expr - np.mean(temp_expr)
 	return temp_expr
 
+def extract_dictionary_list_of_tested_genes(qtl_test_names_file):
+	f = open(qtl_test_names_file)
+	dicti = {}
+	for line in f:
+		line = line.rstrip()
+		data = line.split('\t')
+		dicti[data[0]] = 1
+	f.close()
+	return dicti
 
 ##############################
 # Command line args
 ##############################
 pseudocell_pseudobulk_adata_file = sys.argv[1]
 standard_eqtl_input_data_dir = sys.argv[2]
+qtl_test_names_file = sys.argv[3]
+
+#  extract_dictionary_list_of_tested_genes
+tested_genes = extract_dictionary_list_of_tested_genes(qtl_test_names_file)
 
 
 # Load in adata file
@@ -68,6 +81,7 @@ if n_genes != len(ordered_gene_symbol_names):
 	pdb.set_trace()
 
 
+
 # Print expression matrix to tab delimited file
 tab_delimited_expression_matrix_file = standard_eqtl_input_data_dir + 'pseudobulk_expression_standardized.txt'
 # Print header
@@ -78,6 +92,10 @@ for gene_iter in range(n_genes):
 	# Extract relevent fields
 	gene_name = ordered_gene_symbol_names[gene_iter]
 	un_normalized_expression = adata.X[:, gene_iter]
+
+	gene_name = ordered_gene_symbol_names[gene_iter]
+	if gene_name not in tested_genes:
+		continue 
 
 	# Standardize gene expression
 	normalized_expression = standardize_gene_expression_and_cap_outliers(un_normalized_expression)
@@ -92,7 +110,14 @@ gene_id_file = standard_eqtl_input_data_dir + 'pseudobulk_expression_gene_ids.tx
 t = open(gene_id_file,'w')
 t.write('gene_name\tensamble_id\n')
 for gene_iter in range(n_genes):
+	gene_name = ordered_gene_symbol_names[gene_iter]
+	if gene_name not in tested_genes:
+		continue 
 	t.write(ordered_gene_symbol_names[gene_iter] + '\t' + ordered_ensamble_ids[gene_iter] + '\n')
 t.close()
+
+
+
+
 
 

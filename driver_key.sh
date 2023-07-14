@@ -21,7 +21,7 @@ pseudocell_to_donor_id_mapping_file="/data/abattle4/merlin/eb_project/surge/data
 
 # File contianing standard eQTL results
 # Shared by Merlin Li
-standard_eqtl_results_file="/data/abattle4/merlin/eb_project/surge/data_ben/association_summary_bonf.tsv"
+old_standard_eqtl_results_file="/data/abattle4/merlin/eb_project/surge/data_ben/association_summary_bonf.tsv"
 
 # Plink file stem containing eb genotype data
 # Shared by Merlin Li
@@ -64,11 +64,15 @@ n_pcs="20"
 
 ############################
 # Preprocess data for standard eQTL calling
-sh preprocess_data_for_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $pseudocell_pseudobulk_adata_file $plink_eb_genotype_file_stem $pseudocell_expression_pc_file $pseudocell_technical_cov_file $pseudocell_to_donor_id_mapping_file $n_pcs
+if false; then
+sh preprocess_data_for_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $pseudocell_pseudobulk_adata_file $plink_eb_genotype_file_stem $pseudocell_expression_pc_file $pseudocell_technical_cov_file $pseudocell_to_donor_id_mapping_file $n_pcs $old_standard_eqtl_results_file
+fi
 
-
-
-
+############################
+# Run standard eqtl calling
+if false; then
+sh run_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $standard_eqtl_results_dir
+fi
 
 
 
