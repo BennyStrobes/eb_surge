@@ -76,12 +76,11 @@ fi
 
 
 
-
-
 ############################
 # Preprocess data for SURGE
+standard_eqtl_results_file=$standard_eqtl_results_dir"standard_eqtl_results_merged.txt"
 if false; then
-sh preprocess_data_for_surge.sh $surge_input_data_dir $pseudocell_technical_cov_file $pseudocell_expression_pc_file $pseudocell_pseudobulk_adata_file $pseudocell_to_donor_id_mapping_file $standard_eqtl_results_file $plink_eb_genotype_file_stem $eb_hvg_file
+sh preprocess_data_for_surge.sh $surge_input_data_dir $pseudocell_technical_cov_file $pseudocell_expression_pc_file $pseudocell_pseudobulk_adata_file $pseudocell_to_donor_id_mapping_file $standard_eqtl_results_file $plink_eb_genotype_file_stem $eb_hvg_file $standard_eqtl_input_data_dir
 fi
 
 
