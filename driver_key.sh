@@ -75,13 +75,50 @@ sh run_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $standard_eqtl_res
 fi
 
 
-
 ############################
 # Preprocess data for SURGE
 standard_eqtl_results_file=$standard_eqtl_results_dir"standard_eqtl_results_merged.txt"
 if false; then
 sh preprocess_data_for_surge.sh $surge_input_data_dir $pseudocell_technical_cov_file $pseudocell_expression_pc_file $pseudocell_pseudobulk_adata_file $pseudocell_to_donor_id_mapping_file $standard_eqtl_results_file $plink_eb_genotype_file_stem $eb_hvg_file $standard_eqtl_input_data_dir
 fi
+
+
+
+############################
+# Run SURGE
+# SURGE parameters
+permutation_type="False"
+model_name="surge"
+ratio_variance_standardization="True"
+round_genotype="False"
+warmup_iterations="5"
+num_latent_factors="20"
+data_filter="none"
+delta_elbo_thresh="1e-2"
+lambda_v="1"
+seed="1"
+variance_param="1e-3"
+ard_variance_param="1e-3"
+# SURGE input data
+gene_set_arr=( "all_genes" "hv_genes")
+num_genes_arr=( "500" "1000" "1500" "2000")
+if false; then
+for gene_set in "${gene_set_arr[@]}"; do
+for num_genes in "${num_genes_arr[@]}"; do
+	input_data_stem="eb_surge_input_standard_eqtl_"${num_genes}"_"${gene_set}
+	test_names_file=${surge_input_data_dir}${input_data_stem}"_test_names.txt"
+	expression_training_file=${surge_input_data_dir}${input_data_stem}"_expression.npy"
+	genotype_training_file=${surge_input_data_dir}${input_data_stem}"_genotype.npy"
+	covariate_file=${surge_input_data_dir}${input_data_stem}"_covariates.txt"
+	sample_overlap_file=${surge_input_data_dir}${input_data_stem}"_sample_repeat.txt"
+
+
+	output_stem=$surge_results_dir$input_data_stem"_"$model_name"_results_k_"$num_latent_factors"_seed_"$seed"_warm_"$warmup_iterations"_rv_std_"$ratio_variance_standardization"_perm_"$permutation_type"_delta_elbo_"$delta_elbo_thresh"_"$data_filter"_"
+	sbatch run_surge.sh $expression_training_file $genotype_training_file $covariate_file $sample_overlap_file $num_latent_factors $lambda_v $model_name $seed $output_stem $variance_param $ard_variance_param $ratio_variance_standardization $permutation_type $warmup_iterations $round_genotype $data_filter $test_names_file $delta_elbo_thresh
+done
+done
+fi
+
 
 
 

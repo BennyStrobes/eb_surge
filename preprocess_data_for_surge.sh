@@ -48,8 +48,6 @@ for num_genes in "${num_genes_arr[@]}"; do
 	surge_genotype_file=${file_stem}"genotype.npy"
 	python extract_genotype_for_surge.py $test_names_file $genotype_input_file $genotype_individual_to_sample_mapping_file $surge_genotype_file
 
-
-
 	# Extract covariates for SURGE
 	covariate_input_file=${standard_eqtl_input_data_dir}"pseudocell_sample_eqtl_covariates.txt"
 	surge_covariate_file=${file_stem}"covariates.txt"
