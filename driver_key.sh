@@ -9,7 +9,7 @@ pseudocell_technical_cov_file="/data/abattle4/merlin/eb_project/surge/data_ben/c
 # File containing pseudocell expression pcs
 # Contains 100 expression pcs
 # Shared by Merlin Li
-pseudocell_expression_pc_file="/data/abattle4/merlin/eb_project/surge/data_ben/expr_pc100.csv"
+original_pseudocell_expression_pc_file="/data/abattle4/merlin/eb_project/surge/data_ben/expr_pc100.csv"
 
 # File containing pseudocell pseudobulk adata file
 # Shared by Merlin Li
@@ -65,21 +65,20 @@ n_pcs="20"
 ############################
 # Preprocess data for standard eQTL calling
 if false; then
-sh preprocess_data_for_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $pseudocell_pseudobulk_adata_file $plink_eb_genotype_file_stem $pseudocell_expression_pc_file $pseudocell_technical_cov_file $pseudocell_to_donor_id_mapping_file $n_pcs $old_standard_eqtl_results_file
+sh preprocess_data_for_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $pseudocell_pseudobulk_adata_file $plink_eb_genotype_file_stem $pseudocell_technical_cov_file $pseudocell_to_donor_id_mapping_file $n_pcs $old_standard_eqtl_results_file
 fi
 
 ############################
 # Run standard eqtl calling
-if false; then
 sh run_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $standard_eqtl_results_dir
-fi
+
 
 
 ############################
 # Preprocess data for SURGE
 standard_eqtl_results_file=$standard_eqtl_results_dir"standard_eqtl_results_merged.txt"
 if false; then
-sh preprocess_data_for_surge.sh $surge_input_data_dir $pseudocell_technical_cov_file $pseudocell_expression_pc_file $pseudocell_pseudobulk_adata_file $pseudocell_to_donor_id_mapping_file $standard_eqtl_results_file $plink_eb_genotype_file_stem $eb_hvg_file $standard_eqtl_input_data_dir
+sh preprocess_data_for_surge.sh $surge_input_data_dir $pseudocell_technical_cov_file $pseudocell_pseudobulk_adata_file $pseudocell_to_donor_id_mapping_file $standard_eqtl_results_file $plink_eb_genotype_file_stem $eb_hvg_file $standard_eqtl_input_data_dir
 fi
 
 

@@ -3,13 +3,12 @@
 
 surge_input_data_dir="$1"
 pseudocell_technical_cov_file="$2"
-pseudocell_expression_pc_file="$3"
-pseudocell_pseudobulk_adata_file="$4"
-pseudocell_to_donor_id_mapping_file="$5"
-standard_eqtl_results_file="$6"
-plink_eb_genotype_file_stem="$7"
-eb_hvg_file="$8"
-standard_eqtl_input_data_dir="$9"
+pseudocell_pseudobulk_adata_file="$3"
+pseudocell_to_donor_id_mapping_file="$4"
+standard_eqtl_results_file="$5"
+plink_eb_genotype_file_stem="$6"
+eb_hvg_file="$7"
+standard_eqtl_input_data_dir="$8"
 
 source ~/.bash_profile
 
