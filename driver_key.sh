@@ -70,8 +70,9 @@ fi
 
 ############################
 # Run standard eqtl calling
+if false; then
 sh run_standard_eqtl_calling.sh $standard_eqtl_input_data_dir $standard_eqtl_results_dir
-
+fi
 
 
 ############################
@@ -117,7 +118,5 @@ for num_genes in "${num_genes_arr[@]}"; do
 done
 done
 fi
-
-
 
 

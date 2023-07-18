@@ -42,7 +42,6 @@ for job_number in $(seq 1 $(($num_jobs-1))); do
 done
 fi
 
-
 if false; then
 python merge_parallelized_standard_eqtl_calls.py $standard_eqtl_results_dir"standard_eqtl_results_" $num_jobs
 fi
